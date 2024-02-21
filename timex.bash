@@ -2,7 +2,7 @@
 
 # Function to check if a command is valid
 check_valid_cmd() {
-    cmd_to_check="$@"
+    cmd_to_check="${@:1}"
     if ! eval "$cmd_to_check" &> /dev/null; then
         echo "The command '"$cmd_to_check"' is not valid" >&2
         return 1
@@ -29,7 +29,7 @@ time_x_times_cmd() {
     # Perform the timing
     echo "About to time the command '"$cmd"' $number_of_tests times."  
     time (
-        for ((i = 1; i <= number_of_tests; i++)); do
+        for ((i = 0; i < number_of_tests; i++)); do
             $cmd
         done > /dev/null
     )
